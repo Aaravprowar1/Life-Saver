@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Life Saver | Offline Emergency Utility</title>
+  <meta name="description" content="Life Saver: an offline-first disaster resilience and emergency utility with first-aid protocols, a siren, an SOS flasher and a medical ID vault.">
+  <meta name="author" content="Ashima Pawar">
+  <meta name="creator" content="Ashima Pawar">
+  <meta name="publisher" content="ZeroGrid Utility">
+  <meta name="application-name" content="Life Saver">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Life Saver">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230f172a'/%3E%3Cpath d='M40 18h20v22h22v20H60v22H40V60H18V40h22z' fill='%23ef4444'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">+</span>
+      <div>
+        <h1>Life Saver</h1>
+        <p class="tagline">Offline-first disaster resilience &amp; emergency utility</p>
+      </div>
+    </div>
+    <div class="status-group">
+      <span class="status-badge" role="status">
+        <span class="dot" aria-hidden="true"></span>
+        System Ready (100% Offline Functional)
+      </span>
+      <span id="network-status" class="network-badge" aria-live="polite">Checking network…</span>
+    </div>
+  </header>
+
+  <main id="main" class="card-grid">
+    <!-- 1. First-Aid Protocol Engine -->
+    <section class="card card-wide" aria-labelledby="protocol-title">
+      <h2 id="protocol-title"><span aria-hidden="true">🩺</span> First-Aid &amp; Emergency Protocols</h2>
+      <p class="card-hint">Choose an emergency to see step-by-step guidance. Always call your local emergency number first if you can.</p>
+      <label for="protocol-select" class="field-label">Emergency type</label>
+      <select id="protocol-select" class="input">
+        <option value="">Select an emergency protocol…</option>
+      </select>
+      <div id="protocol-output" class="protocol-output" aria-live="polite"></div>
+    </section>
+
+    <!-- 2a. Acoustic Siren -->
+    <section class="card" aria-labelledby="siren-title">
+      <h2 id="siren-title"><span aria-hidden="true">📢</span> Acoustic Emergency Siren</h2>
+      <p class="card-hint">A loud 800 Hz to 1200 Hz sweeping tone to attract rescuers. Turn your volume up.</p>
+      <button id="siren-btn" class="btn btn-danger btn-large" type="button" aria-pressed="false">
+        Start Siren
+      </button>
+      <p id="siren-status" class="feedback" aria-live="polite"></p>
+    </section>
+
+    <!-- 2b. SOS Flasher -->
+    <section class="card" aria-labelledby="sos-title">
+      <h2 id="sos-title"><span aria-hidden="true">🔦</span> Optical Screen SOS Flasher</h2>
+      <p class="card-hint">Flashes Morse code SOS (<code>... --- ...</code>) across the full screen. Tap the screen or press Esc to stop.</p>
+      <p class="warning">Warning: contains flashing light. Not suitable for people with photosensitive epilepsy.</p>
+      <button id="sos-btn" class="btn btn-danger btn-large" type="button">
+        Start SOS Flasher
+      </button>
+    </section>
+
+    <!-- 3. Medical ID Vault -->
+    <section class="card card-wide" aria-labelledby="vault-title">
+      <h2 id="vault-title"><span aria-hidden="true">🪪</span> Offline Medical ID &amp; Emergency Data Vault</h2>
+      <p class="card-hint">Stored only on this device. Nothing is uploaded anywhere.</p>
+      <form id="vault-form" class="vault-form" novalidate>
+        <div class="form-row">
+          <label for="v-name" class="field-label">Full Name</label>
+          <input id="v-name" name="fullName" class="input" type="text" autocomplete="name" maxlength="120">
+        </div>
+        <div class="form-row">
+          <label for="v-blood" class="field-label">Blood Group</label>
+          <select id="v-blood" name="bloodGroup" class="input">
+            <option value="">Unknown / not set</option>
+            <option>A+</option><option>A-</option>
+            <option>B+</option><option>B-</option>
+            <option>AB+</option><option>AB-</option>
+            <option>O+</option><option>O-</option>
+          </select>
+        </div>
+        <div class="form-row form-row-full">
+          <label for="v-contacts" class="field-label">Emergency Contacts</label>
+          <textarea id="v-contacts" name="contacts" class="input" rows="3" maxlength="1000" placeholder="e.g. Mom: +1 555 0100"></textarea>
+        </div>
+        <div class="form-row form-row-full">
+          <label for="v-medical" class="field-label">Medical Conditions / Allergies</label>
+          <textarea id="v-medical" name="medical" class="input" rows="3" maxlength="2000" placeholder="e.g. Asthma, penicillin allergy"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Save to Device</button>
+          <button type="button" id="vault-load" class="btn btn-secondary">Load Saved Data</button>
+          <button type="button" id="vault-clear" class="btn btn-ghost">Clear Vault</button>
+        </div>
+        <p id="vault-feedback" class="feedback" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <!-- Full-screen SOS overlay -->
+  <div id="sos-overlay" class="sos-overlay" hidden role="dialog" aria-modal="true" aria-label="SOS flasher active. Tap or press Escape to stop.">
+    <div class="sos-info">
+      <span class="sos-code" aria-hidden="true">... --- ...</span>
+      <span class="sos-exit">Tap anywhere or press Esc to stop</span>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>ZeroGrid Utility | Designed &amp; Developed by Ashima Pawar</p>
+    <p class="footer-note">This app gives general first-aid guidance and is not a substitute for professional medical care.</p>
+  </footer>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
