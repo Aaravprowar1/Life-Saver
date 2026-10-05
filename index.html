@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Life Saver | Offline Emergency Utility</title>
-  <meta name="description" content="Life Saver: an offline-first disaster resilience and emergency utility with first-aid protocols, a siren, an SOS flasher and a medical ID vault.">
+  <meta name="description" content="Life Saver: an offline-first disaster resilience and emergency utility with searchable first-aid, survival and disaster protocols, a siren, an SOS flasher and a medical ID vault.">
   <meta name="author" content="Ashima Pawar">
   <meta name="creator" content="Ashima Pawar">
   <meta name="publisher" content="ZeroGrid Utility">
@@ -42,9 +42,17 @@
   <main id="main" class="card-grid">
     <!-- 1. First-Aid Protocol Engine -->
     <section class="card card-wide" aria-labelledby="protocol-title">
-      <h2 id="protocol-title"><span aria-hidden="true">🩺</span> First-Aid &amp; Emergency Protocols</h2>
-      <p class="card-hint">Choose an emergency to see step-by-step guidance. Always call your local emergency number first if you can.</p>
-      <label for="protocol-select" class="field-label">Emergency type</label>
+      <h2 id="protocol-title"><span aria-hidden="true">🩺</span> First-Aid, Survival &amp; Disaster Protocols</h2>
+      <p class="card-hint">Search or choose an emergency to see step-by-step guidance. Always call your local emergency number first if you can.</p>
+      <form id="protocol-search-form" class="search-form" role="search">
+        <label for="protocol-search" class="field-label">Search protocols</label>
+        <div class="search-row">
+          <input id="protocol-search" class="input" type="search" placeholder="e.g. water, lost, cold, snake, flood" autocomplete="off" enterkeyhint="search">
+          <button type="submit" class="btn btn-danger">Search</button>
+        </div>
+      </form>
+      <div id="protocol-results" class="search-results" aria-live="polite"></div>
+      <label for="protocol-select" class="field-label">Or browse by category</label>
       <select id="protocol-select" class="input">
         <option value="">Select an emergency protocol…</option>
       </select>

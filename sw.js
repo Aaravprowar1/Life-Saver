@@ -4,7 +4,7 @@
    ========================================================================== */
 'use strict';
 
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.1.0';
 const CACHE_NAME = `life-saver-${CACHE_VERSION}`;
 
 // Relative to the service worker's location, so the app works from a
